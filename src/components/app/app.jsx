@@ -12,9 +12,9 @@ import "./app.css";
 class App extends React.Component {
   state = {
     data: [
-      { id: "1", name: "John.S", salary: 1000, increase: false },
-      { id: "2", name: "Tom.P", salary: 800, increase: false },
-      { id: "3", name: "Oleg.H", salary: 290, increase: false },
+      { id: "1", name: "John.S", salary: 1000, increase: false, rise: false },
+      { id: "2", name: "Tom.P", salary: 800, increase: false, rise: false },
+      { id: "3", name: "Oleg.H", salary: 290, increase: false, rise: false },
     ],
   };
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     this.setState((prevState) => ({
       data: [
         ...prevState.data,
-        { id: nanoid(), name, salary, increase: false },
+        { id: nanoid(), name, salary, increase: false, rise: false },
       ],
     }));
   };
@@ -42,6 +42,8 @@ class App extends React.Component {
 
   handleToggleRise = (id) => {
     console.log(`Rise this ${id}`);
+    let item = this.state.data.find((item) => item.id === id);
+    console.log(item);
   };
 
   render() {
