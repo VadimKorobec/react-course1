@@ -13,7 +13,7 @@ class App extends React.Component {
   state = {
     data: [
       { id: "1", name: "John.S", salary: 1000, increase: false },
-      { id: "2", name: "Tom.P", salary: 800, increase: true },
+      { id: "2", name: "Tom.P", salary: 800, increase: false },
       { id: "3", name: "Oleg.H", salary: 290, increase: false },
     ],
   };
@@ -34,16 +34,31 @@ class App extends React.Component {
     }));
   };
 
+  handleToggleIncrease = (id) => {
+    console.log(`Increase this ${id}`);
+    let item = this.state.data.find((item) => item.id === id);
+    console.log(item);
+  };
+
+  handleToggleRise = (id) => {
+    console.log(`Rise this ${id}`);
+  };
+
   render() {
     const { data } = this.state;
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo data={data} />
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
         </div>
-        <EmployeesList onDelete={this.handleDeleteItem} data={data} />
+        <EmployeesList
+          onToggleIncrease={this.handleToggleIncrease}
+          onToggleRise={this.handleToggleRise}
+          onDelete={this.handleDeleteItem}
+          data={data}
+        />
         <EmployessAddForm onAddItem={this.handleAddItem} />
       </div>
     );

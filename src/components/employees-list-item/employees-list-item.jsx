@@ -10,12 +10,14 @@ class EmployeesListItem extends React.Component {
     };
   }
 
-  onIncrease = () => {
+  onIncrease = (id) => {
     this.setState((prevState) => ({ increase: !prevState.increase }));
+    this.props.onToggleIncrease(id);
   };
 
-  onRise = () => {
+  onRise = (id) => {
     this.setState((prevState) => ({ rise: !prevState.rise }));
+    this.props.onToggleRise(id);
   };
 
   render() {
@@ -32,7 +34,7 @@ class EmployeesListItem extends React.Component {
 
     return (
       <li className={classNames}>
-        <span onClick={this.onRise} className="list-group-item-label">
+        <span onClick={() => this.onRise(id)} className="list-group-item-label">
           {name}
         </span>
         <input
@@ -42,7 +44,7 @@ class EmployeesListItem extends React.Component {
         />
         <div className="d-flex justify-content-center align-items-center">
           <button
-            onClick={this.onIncrease}
+            onClick={() => this.onIncrease(id)}
             type="button"
             className="btn-cookie btn-sm "
           >
