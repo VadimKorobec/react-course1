@@ -9,9 +9,19 @@ class EmployessAddForm extends React.Component {
       salary: "",
     };
   }
+
   onValueChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.onAddItem(this.state);
+    this.setState({
+      name: "",
+      salary: "",
     });
   };
 
@@ -20,7 +30,7 @@ class EmployessAddForm extends React.Component {
     return (
       <div className="app-add-form">
         <h3>Добавьте нового сотрудника</h3>
-        <form className="add-form d-flex">
+        <form onSubmit={this.handleSubmit} className="add-form d-flex">
           <input
             type="text"
             className="form-control new-post-label"
