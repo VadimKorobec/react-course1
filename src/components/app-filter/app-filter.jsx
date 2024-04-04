@@ -1,6 +1,6 @@
 import "./app-filter.css";
 
-const AppFilter = () => {
+const AppFilter = ({ filter, onFilter }) => {
   const buttonData = [
     { name: "all", label: "Все сотрудники" },
     { name: "rise", label: "На повышение" },
@@ -8,15 +8,21 @@ const AppFilter = () => {
   ];
 
   return (
-    <ul className="btn-group">
+    <div className="btn-group">
       {buttonData.map((item, i) => (
-        <li key={i}>
-          <button className="btn btn-light" type="button">
+        <div key={i}>
+          <button
+            className={
+              filter === item.name ? "btn btn-light" : "btn btn-outline-light"
+            }
+            type="button"
+            onClick={() => onFilter(item.name)}
+          >
             {item.label}
           </button>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 
   // return (

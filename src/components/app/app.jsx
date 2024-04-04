@@ -64,12 +64,15 @@ class App extends React.Component {
     }));
   };
 
-  handleSearchEmp = (items, term) => {
+  handleSearchEmp = (data, term) => {
     if (term.length === 0) {
-      return items;
+      return data;
     }
+    // this.setState((prevState) => ({
+    //   data: prevState.data.filter((item) => item.name.indexOf(term) > -1),
+    // }));
 
-    return items.filter((item) => {
+    return data.filter((item) => {
       return item.name.indexOf(term) > -1;
     });
   };
@@ -78,15 +81,19 @@ class App extends React.Component {
     this.setState({ term: term });
   };
 
-  handleFilterPost = (items, filter) => {
+  handleFilterPost = (data, filter) => {
     switch (filter) {
       case "rise":
-        return items.filter((item) => item.rise);
+        return data.filter((item) => item.rise);
       case "salary":
-        return items.filter((item) => item.salary > 1000);
+        return data.filter((item) => item.salary > 1000);
       default:
-        return items;
+        return data;
     }
+  };
+
+  handlerFilterSelect = (filter) => {
+    this.setState({ filter: filter });
   };
 
   render() {
@@ -100,7 +107,7 @@ class App extends React.Component {
         <AppInfo data={data} />
         <div className="search-panel">
           <SearchPanel onSearch={this.handleUpdateSearch} />
-          <AppFilter />
+          <AppFilter onFilter={this.handlerFilterSelect} filter={filter} />
         </div>
         <EmployeesList
           onToggleIncrease={this.handleToggleIncrease}
