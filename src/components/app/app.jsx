@@ -16,6 +16,7 @@ class App extends React.Component {
       { id: "2", name: "Tom.P", salary: 800, increase: false, rise: false },
       { id: "3", name: "Oleg.H", salary: 290, increase: false, rise: false },
     ],
+    term: "",
   };
 
   handleDeleteItem = (id) => {
@@ -62,22 +63,35 @@ class App extends React.Component {
     }));
   };
 
- 
+  handleSearchEmp = (items, term) => {
+    if (term.length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.name.indexOf(term) > -1;
+    });
+  };
+
+  handleUpdateSearch = (term) => {
+    this.setState({ term: term });
+  };
 
   render() {
-    const { data } = this.state;
+    const { data, term } = this.state;
+    const visibleData = this.handleSearchEmp(data, term);
     return (
       <div className="app">
-        <AppInfo  data={data} />
+        <AppInfo data={data} />
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel onSearch={this.handleUpdateSearch} />
           <AppFilter />
         </div>
         <EmployeesList
           onToggleIncrease={this.handleToggleIncrease}
           onToggleRise={this.handleToggleRise}
           onDelete={this.handleDeleteItem}
-          data={data}
+          data={visibleData}
         />
         <EmployessAddForm onAddItem={this.handleAddItem} />
       </div>
