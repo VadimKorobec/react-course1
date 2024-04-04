@@ -17,6 +17,7 @@ class App extends React.Component {
       { id: "3", name: "Oleg.H", salary: 290, increase: false, rise: false },
     ],
     term: "",
+    filter: "",
   };
 
   handleDeleteItem = (id) => {
@@ -77,9 +78,23 @@ class App extends React.Component {
     this.setState({ term: term });
   };
 
+  handleFilterPost = (items, filter) => {
+    switch (filter) {
+      case "rise":
+        return items.filter((item) => item.rise);
+      case "salary":
+        return items.filter((item) => item.salary > 1000);
+      default:
+        return items;
+    }
+  };
+
   render() {
-    const { data, term } = this.state;
-    const visibleData = this.handleSearchEmp(data, term);
+    const { data, term, filter } = this.state;
+    const visibleData = this.handleFilterPost(
+      this.handleSearchEmp(data, term),
+      filter
+    );
     return (
       <div className="app">
         <AppInfo data={data} />
