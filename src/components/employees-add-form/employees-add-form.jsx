@@ -18,6 +18,9 @@ class EmployessAddForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    if (this.state.name === "" && this.state.salary === "") {
+      return;
+    }
     this.props.onAddItem(this.state);
     this.setState({
       name: "",

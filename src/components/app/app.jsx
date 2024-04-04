@@ -35,22 +35,40 @@ class App extends React.Component {
   };
 
   handleToggleIncrease = (id) => {
-    console.log(`Increase this ${id}`);
-    let item = this.state.data.find((item) => item.id === id);
-    console.log(item);
+    this.setState((prevState) => ({
+      data: prevState.data.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            increase: !item.increase,
+          };
+        }
+        return item;
+      }),
+    }));
   };
 
   handleToggleRise = (id) => {
-    console.log(`Rise this ${id}`);
-    let item = this.state.data.find((item) => item.id === id);
-    console.log(item);
+    this.setState((prevState) => ({
+      data: prevState.data.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            rise: !item.rise,
+          };
+        }
+        return item;
+      }),
+    }));
   };
+
+ 
 
   render() {
     const { data } = this.state;
     return (
       <div className="app">
-        <AppInfo data={data} />
+        <AppInfo  data={data} />
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
