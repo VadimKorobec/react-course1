@@ -38,29 +38,17 @@ class App extends React.Component {
 
   handleToggleIncrease = (id) => {
     this.setState((prevState) => ({
-      data: prevState.data.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            increase: !item.increase,
-          };
-        }
-        return item;
-      }),
+      data: prevState.data.map((item) =>
+        item.id === id ? { ...item, increase: !item.increase } : item
+      ),
     }));
   };
 
   handleToggleRise = (id) => {
     this.setState((prevState) => ({
-      data: prevState.data.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            rise: !item.rise,
-          };
-        }
-        return item;
-      }),
+      data: prevState.data.map((item) =>
+        item.id === id ? { ...item, rise: !item.rise } : item
+      ),
     }));
   };
 
@@ -68,9 +56,6 @@ class App extends React.Component {
     if (term.length === 0) {
       return data;
     }
-    // this.setState((prevState) => ({
-    //   data: prevState.data.filter((item) => item.name.indexOf(term) > -1),
-    // }));
 
     return data.filter((item) => {
       return item.name.indexOf(term) > -1;
@@ -81,14 +66,14 @@ class App extends React.Component {
     this.setState({ term: term });
   };
 
-  handleFilterPost = (data, filter) => {
+  handleFilterPost = (items, filter) => {
     switch (filter) {
       case "rise":
-        return data.filter((item) => item.rise);
+        return items.filter((item) => item.rise);
       case "salary":
-        return data.filter((item) => item.salary > 1000);
+        return items.filter((item) => item.salary > 1000);
       default:
-        return data;
+        return items;
     }
   };
 
